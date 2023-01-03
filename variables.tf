@@ -1,9 +1,9 @@
-variable "rgname" {
+variable "rg_name" {
   description = "resoruce group name"
   type        = string
 }
 
-variable "rglocation" {
+variable "rg_location" {
   description = "resoruce group location"
   type        = string
 }
