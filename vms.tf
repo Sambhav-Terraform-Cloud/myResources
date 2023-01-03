@@ -2,7 +2,7 @@ resource "azurerm_virtual_network" "myVnet" {
   name                = "myVnet1"
   address_space       = ["10.0.0.0/16"]
   resource_group_name             = azurerm_resource_group.rg.name
-  location                        = azurerm_resource_group.rglocation
+  location                        = azurerm_resource_group.rg.location
 }
 
 resource "azurerm_subnet" "mySubnet" {
@@ -15,7 +15,7 @@ resource "azurerm_subnet" "mySubnet" {
 resource "azurerm_network_interface" "myWinNic" {
   name                = "myWinNic1"
   resource_group_name             = azurerm_resource_group.rg.name
-  location                        = azurerm_resource_group.rglocation
+  location                        = azurerm_resource_group.rg.location
 
   ip_configuration {
     name                          = "internal"
@@ -26,8 +26,9 @@ resource "azurerm_network_interface" "myWinNic" {
 
 resource "azurerm_network_interface" "myLinNic" {
   name                = "myLinNic1"
+  
   resource_group_name             = azurerm_resource_group.rg.name
-  location                        = azurerm_resource_group.rglocation
+  location                        = azurerm_resource_group.rg.location
 
   ip_configuration {
     name                          = "internal"
@@ -41,7 +42,7 @@ resource "azurerm_windows_virtual_machine" "myWindowsVm1" {
   name                            = "mywindowsvm1"
   computer_name                   = "mywindowsvm1"
   resource_group_name             = azurerm_resource_group.rg.name
-  location                        = azurerm_resource_group.rglocation
+  location                        = azurerm_resource_group.rg.location
   size                          = "Standard_B2s"
   admin_username                  = "adminlogin"
   admin_password                  = "Password@123"
@@ -71,7 +72,7 @@ resource "azurerm_windows_virtual_machine" "myWindowsVm1" {
 resource "azurerm_linux_virtual_machine" "myLinuxVm1" {
   name                = "mylinuxvm1"
   resource_group_name             = azurerm_resource_group.rg.name
-  location                        = azurerm_resource_group.rglocation
+  location                        = azurerm_resource_group.rg.location
   size                          = "Standard_B2s"
   admin_username      = "adminuser"
   admin_password      = "Password@123"
