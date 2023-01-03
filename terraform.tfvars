@@ -1,0 +1,3 @@
+rgname  = "myrg"
+rglocation = "eastus"
+
