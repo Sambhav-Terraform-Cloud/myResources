@@ -1,22 +1,27 @@
 
+locals {
+  rg_name = var.rgname
+  rg_location = var.rglocation
+}
+
 resource "azurerm_virtual_network" "myVnet" {
   name                = "myVnet1"
   address_space       = ["10.0.0.0/16"]
-  resource_group_name             = var.rgname
-  location                        = var.rglocation
+  resource_group_name             = local.rg_name
+  location                        = local.rg_location
 }
 
 resource "azurerm_subnet" "mySubnet" {
   name                 = "mySubnet1"
-  resource_group_name             = data.azurerm_resource_group.rg.name
+  resource_group_name             = local.rg_name
   virtual_network_name = azurerm_virtual_network.myVnet.name
   address_prefixes     = ["10.0.2.0/24"]
 }
 
 resource "azurerm_network_interface" "myWinNic" {
   name                = "myWinNic1"
-  resource_group_name             = var.rgname
-  location                        = var.rglocation
+  resource_group_name             = local.rg_name
+  location                        = local.rg_location
 
   ip_configuration {
     name                          = "internal"
@@ -27,8 +32,8 @@ resource "azurerm_network_interface" "myWinNic" {
 
 resource "azurerm_network_interface" "myLinNic" {
   name                = "myLinNic1"
-  resource_group_name             = var.rgname
-  location                        = var.rglocation
+  resource_group_name             = local.rg_name
+  location                        = local.rg_location
 
   ip_configuration {
     name                          = "internal"
@@ -71,8 +76,8 @@ resource "azurerm_windows_virtual_machine" "myWindowsVm1" {
 
 resource "azurerm_linux_virtual_machine" "myLinuxVm1" {
   name                = "mylinuxvm1"
-  resource_group_name             = var.rgname
-  location                        = var.rglocation
+  resource_group_name             = local.rg_name
+  location                        = local.rg_location
   size                          = "Standard_B2s"
   admin_username      = "adminuser"
   admin_password      = "Password@123"
