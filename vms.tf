@@ -1,9 +1,3 @@
-
-locals {
-  rg_name = var.rgname
-  rg_location = var.rglocation
-}
-
 resource "azurerm_virtual_network" "myVnet" {
   name                = "myVnet1"
   address_space       = ["10.0.0.0/16"]
