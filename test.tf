@@ -91,12 +91,6 @@ resource "azurerm_network_interface" "example" {
   }
 }
 
-resource "azurerm_user_assigned_identity" "example" {
-  location            = azurerm_resource_group.example.location
-  name                = "example-id"
-  resource_group_name = azurerm_resource_group.example.name
-}
-
 #VM
 resource "azurerm_windows_virtual_machine" "example" {
   name                = "example-machine"
@@ -121,8 +115,7 @@ resource "azurerm_windows_virtual_machine" "example" {
     version   = "latest"
   }
   identity {
-    type         = "SystemAssigned, UserAssigned"
-    identity_ids = [azurerm_user_assigned_identity.example.id]
+    type         = "SystemAssigned"
   }
 }
 
@@ -141,13 +134,6 @@ resource "azurerm_virtual_machine_extension" "azuremonitorwindowsagent" {
     workspaceId               = azurerm_log_analytics_workspace.workspace.id
     azureResourceId           = azurerm_windows_virtual_machine.example.id
     stopOnMultipleConnections = false
-
-    authentication = {
-      managedIdentity = {
-        identifier-name  = "mi_res_id"
-        identifier-value = azurerm_user_assigned_identity.example.id
-      }
-    }
 
   })
   protected_settings = jsonencode({
