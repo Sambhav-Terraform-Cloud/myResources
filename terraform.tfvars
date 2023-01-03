@@ -1,3 +1,3 @@
-rgname  = "myrg"
+rgname  = "myrg1"
 rglocation = "eastus"
 
