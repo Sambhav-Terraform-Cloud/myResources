@@ -1,3 +1,4 @@
+/*
 provider "azurerm" {
   features {}
 }
@@ -157,3 +158,4 @@ resource "azurerm_monitor_data_collection_rule_association" "example1" {
   data_collection_rule_id = azurerm_monitor_data_collection_rule.rule.id
   description             = "example"
 }
+*/
